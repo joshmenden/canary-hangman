@@ -1,6 +1,6 @@
 Dir["./services/*.rb"].each {|file| require file }
 Dir["./errors/*.rb"].each {|file| require file }
-require('artii')
+require 'artii'
 require 'colorize'
 
 class Hangman
