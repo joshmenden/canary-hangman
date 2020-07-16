@@ -9,5 +9,3 @@ RUN gem install bundler -v 2.0.2
 RUN bundle install
 COPY . /usr/src/app
 ENTRYPOINT ruby start_game.rb
-
-# docker run -a stdin -a stdout -it canary-hangman:latest
