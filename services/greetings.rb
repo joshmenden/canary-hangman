@@ -9,8 +9,8 @@ module Services
       puts "Welcome to Hangman!"
       puts "Created by Josh Menden, July 2020".light_black
       puts "\n\n"
-      puts "The rules are simple:\n"
-      puts "👉 Pick a difficulty: easy or hard"
+      puts "Some tips for the game:\n"
+      puts "👉 Start with vowels and commonly used consonants"
       puts "👉 Guess letters - you get 6 incorrect guesses!"
       puts "\nAre you ready?\n\n"
     end
