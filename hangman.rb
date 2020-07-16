@@ -13,26 +13,46 @@ class Hangman
     @incorrect_guesses = 0
   end
 
+  def welcome_user!
+    Services::Greetings.welcome!
+  end
+
   def guess_letter letter
     if @guessed_letters.include? letter
-      raise InvalidGuessError.new("You've already guessed this letter! Letter: #{letter}")
+      raise InvalidGuessError.new("You've already guessed this letter!")
+    end
+
+    @guessed_letters.push(letter)
+    if @secret_word.include?(letter)
+      @known_letters.push(letter)
+      return true
+    else
+      @incorrect_guesses += 1
+      return false
     end
   end
 
-  def welcome_user!
-    a = Artii::Base.new :font => 'isometric1'
-    puts a.asciify("Hangman").light_green
+  def new_turn!
+    Services::GallowPrinter.print(wrong_answers: @incorrect_guesses)
+    print_coded_word
+    puts "\nWhat letter would you like to guess?"
+    letter = gets.chomp
+    success = guess_letter(letter)
+    if success
+      puts "\nAlright! You guessed correctly!"
+    else
+      puts "\nDang it! This letter is not in the word!"
+    end
 
-    puts "\n\n"
-    puts "Welcome to Hangman!"
-    puts "Created by Josh Menden, July 2020".light_black
-    puts "\n\n"
-    puts "The rules are simple:\n"
-    puts "👉 Pick a difficulty: easy or hard"
-    puts "👉 Guess letters - you get 6 incorrect guesses!"
-    puts "\nAre you ready?\n\n"
+  rescue InvalidGuessError => e
+    puts "\n#{e}"
+  ensure
+    puts "\n====================================".light_cyan
+  end
 
-
+  def print_coded_word
+    encoded = @secret_word.split("").map {|letter| @known_letters.include?(letter) ? letter : "_" }.join("")
+    puts "\nSecret Word: #{encoded}\n"
   end
 
   def has_guessed_the_word?
