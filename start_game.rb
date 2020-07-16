@@ -1,3 +1,13 @@
 #!/usr/bin/env ruby
+require_relative('./hangman.rb')
 
-puts "Hello, Hangman!"
+
+game = Hangman.new
+
+game.welcome_user!
+
+# while !game.finished?
+#   game.new_turn!
+# end
+
+# game.
