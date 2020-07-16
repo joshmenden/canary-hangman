@@ -17,9 +17,17 @@ class Hangman
     Services::Greetings.welcome!
   end
 
+  def goodbye!
+    Services::Greetings.goodbye!(won_the_game: has_guessed_the_word?, secret_word: @secret_word)
+  end
+
   def guess_letter letter
     if @guessed_letters.include? letter
       raise InvalidGuessError.new("You've already guessed this letter!")
+    end
+
+    if letter.length > 1
+      raise InvalidGuessError.new("Responses must be only one letter!")
     end
 
     @guessed_letters.push(letter)
@@ -47,7 +55,7 @@ class Hangman
   rescue InvalidGuessError => e
     puts "\n#{e}"
   ensure
-    puts "\n====================================".light_cyan
+    puts "\n====================================".light_yellow
   end
 
   def print_coded_word
@@ -56,7 +64,7 @@ class Hangman
   end
 
   def has_guessed_the_word?
-    @known_letters.sort == @secret_word.split("").sort
+    @known_letters.sort == @secret_word.split("").uniq.sort
   end
 
   def has_lost_the_game?
