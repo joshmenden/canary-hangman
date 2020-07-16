@@ -11,7 +11,7 @@ module Services
       puts "\n\n"
       puts "Some tips for the game:\n"
       puts "👉 Start with vowels and commonly used consonants"
-      puts "👉 Guess letters - you get 6 incorrect guesses!"
+      puts "👉 Guess creatively but carefully, you only get 6 incorrect guesses!"
       puts "\nAre you ready?\n\n"
     end
 
